@@ -3,6 +3,7 @@ import 'package:dart_service_locator/force_gc.dart';
 import 'package:dart_service_locator/injection.dart';
 import 'package:dart_service_locator/math_service.dart';
 import 'package:dart_service_locator/service_a_b.dart';
+import 'package:dart_service_locator/service_factory.dart';
 import 'package:dart_service_locator/singleton_service.dart';
 import 'package:get_it/get_it.dart';
 
@@ -14,7 +15,6 @@ void main(List<String> arguments) async {
 
   print(sl.get<MathService>().add(1, 3));
   print('--------------------');
-
 
   sl.get<CachedService>().printMsg();
   await forceGC();
@@ -29,5 +29,8 @@ void main(List<String> arguments) async {
   print('--------------------');
 
   sl.get<ServiceB>().call();
+  print('--------------------');
+
+  sl.get<ServiceFactory>().call();
   print('--------------------');
 }
