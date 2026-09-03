@@ -14,6 +14,7 @@ import 'package:dart_service_locator/cached_service.dart' as _i758;
 import 'package:dart_service_locator/math_service.dart' as _i49;
 import 'package:dart_service_locator/service_a_b.dart' as _i340;
 import 'package:dart_service_locator/service_factory.dart' as _i196;
+import 'package:dart_service_locator/service_future.dart' as _i313;
 import 'package:dart_service_locator/singleton_service.dart' as _i476;
 import 'package:dart_service_locator/text_service.dart' as _i803;
 import 'package:get_it/get_it.dart' as _i174;
@@ -29,6 +30,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factoryCached<_i758.CachedService>(() => _i758.CachedService());
     gh.factory<_i340.ServiceA>(() => _i340.ServiceA());
     gh.factory<_i196.ServiceFactory>(() => _i196.ServiceFactory.defaultValue());
+    gh.factoryAsync<_i313.ServiceFuture>(
+      () => _i313.ServiceFuture.getInstance(),
+    );
     gh.lazySingleton<_i49.MathService>(() => _i49.MathService());
     gh.lazySingleton<_i476.SingletonService>(
       () => _i476.SingletonService(),
