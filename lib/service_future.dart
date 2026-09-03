@@ -2,7 +2,9 @@ import 'package:injectable/injectable.dart';
 
 @Injectable()
 class ServiceFuture {
-  ServiceFuture._();
+  ServiceFuture._() {
+    print('creating future service');
+  }
 
   @FactoryMethod()
   static Future<ServiceFuture> getInstance() async {

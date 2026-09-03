@@ -2,6 +2,7 @@ import 'package:dart_service_locator/cached_service.dart';
 import 'package:dart_service_locator/force_gc.dart';
 import 'package:dart_service_locator/injection.dart';
 import 'package:dart_service_locator/math_service.dart';
+import 'package:dart_service_locator/pre_resolve_future_service.dart';
 import 'package:dart_service_locator/service_a_b.dart';
 import 'package:dart_service_locator/service_factory.dart';
 import 'package:dart_service_locator/service_future.dart';
@@ -11,7 +12,7 @@ import 'package:get_it/get_it.dart';
 late GetIt sl = GetIt.instance;
 
 void main(List<String> arguments) async {
-  configureDependencies(sl);
+  await configureDependencies(sl);
   print('--------------------');
 
   print(sl.get<MathService>().add(1, 3));
@@ -25,7 +26,7 @@ void main(List<String> arguments) async {
   sl.get<SingletonService>().call();
   sl.get<SingletonService>().call();
   await sl.reset();
-  configureDependencies(sl);
+  await configureDependencies(sl);
   sl.get<SingletonService>().call();
   print('--------------------');
 
@@ -36,5 +37,10 @@ void main(List<String> arguments) async {
   print('--------------------');
 
   (await sl.getAsync<ServiceFuture>()).call();
+  print('--------------------');
+
+  // WARNING
+  // Use `get` not `getAsync`, it's pre-resolved.
+  (await sl.get<PreResolveFutureService>()).call();
   print('--------------------');
 }

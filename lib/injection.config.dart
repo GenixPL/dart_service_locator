@@ -12,6 +12,7 @@
 
 import 'package:dart_service_locator/cached_service.dart' as _i758;
 import 'package:dart_service_locator/math_service.dart' as _i49;
+import 'package:dart_service_locator/pre_resolve_future_service.dart' as _i891;
 import 'package:dart_service_locator/service_a_b.dart' as _i340;
 import 'package:dart_service_locator/service_factory.dart' as _i196;
 import 'package:dart_service_locator/service_future.dart' as _i313;
@@ -22,12 +23,16 @@ import 'package:injectable/injectable.dart' as _i526;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
-  _i174.GetIt init({
+  Future<_i174.GetIt> init({
     String? environment,
     _i526.EnvironmentFilter? environmentFilter,
-  }) {
+  }) async {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
     gh.factoryCached<_i758.CachedService>(() => _i758.CachedService());
+    await gh.factoryAsync<_i891.PreResolveFutureService>(
+      () => _i891.PreResolveFutureService.getInstance(),
+      preResolve: true,
+    );
     gh.factory<_i340.ServiceA>(() => _i340.ServiceA());
     gh.factory<_i196.ServiceFactory>(() => _i196.ServiceFactory.defaultValue());
     gh.factoryAsync<_i313.ServiceFuture>(
