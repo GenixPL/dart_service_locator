@@ -12,6 +12,7 @@
 
 import 'package:dart_service_locator/cached_service.dart' as _i758;
 import 'package:dart_service_locator/math_service.dart' as _i49;
+import 'package:dart_service_locator/param_service.dart' as _i759;
 import 'package:dart_service_locator/pre_resolve_future_service.dart' as _i891;
 import 'package:dart_service_locator/service_a_b.dart' as _i340;
 import 'package:dart_service_locator/service_factory.dart' as _i196;
@@ -45,6 +46,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i803.TextService>(() => _i803.TextService());
     gh.factory<_i340.ServiceB>(() => _i340.ServiceB(gh<_i340.ServiceA>()));
+    gh.factoryParam<_i759.ParamService, String, dynamic>(
+      (value, _) => _i759.ParamService(value),
+    );
     return this;
   }
 }

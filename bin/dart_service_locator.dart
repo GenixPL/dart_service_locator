@@ -2,6 +2,7 @@ import 'package:dart_service_locator/cached_service.dart';
 import 'package:dart_service_locator/force_gc.dart';
 import 'package:dart_service_locator/injection.dart';
 import 'package:dart_service_locator/math_service.dart';
+import 'package:dart_service_locator/param_service.dart';
 import 'package:dart_service_locator/pre_resolve_future_service.dart';
 import 'package:dart_service_locator/service_a_b.dart';
 import 'package:dart_service_locator/service_factory.dart';
@@ -42,5 +43,8 @@ void main(List<String> arguments) async {
   // WARNING
   // Use `get` not `getAsync`, it's pre-resolved.
   (await sl.get<PreResolveFutureService>()).call();
+  print('--------------------');
+
+  sl.get<ParamService>(param1: 'DUPA').call();
   print('--------------------');
 }
