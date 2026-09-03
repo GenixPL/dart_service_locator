@@ -7,4 +7,9 @@ environment:
 
 dependencies:
   get_it: 9.2.1
+  injectable: 3.0.0
+
+dev_dependencies:
+  build_runner: 2.16.1
+  injectable_generator: 3.1.3
 

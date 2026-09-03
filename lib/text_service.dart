@@ -1,8 +1,8 @@
 import 'package:injectable/injectable.dart';
 
 @LazySingleton()
-class MathService {
-  num add(num a, num b) {
+class TextService {
+  String concatenate(String a, String b) {
     return a + b;
   }
 }
