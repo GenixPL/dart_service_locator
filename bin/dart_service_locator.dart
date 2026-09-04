@@ -1,4 +1,5 @@
 import 'package:dart_service_locator/cached_service.dart';
+import 'package:dart_service_locator/env_service.dart';
 import 'package:dart_service_locator/force_gc.dart';
 import 'package:dart_service_locator/injection.dart';
 import 'package:dart_service_locator/math_service.dart';
@@ -7,6 +8,7 @@ import 'package:dart_service_locator/pre_resolve_future_service.dart';
 import 'package:dart_service_locator/service_a_b.dart';
 import 'package:dart_service_locator/service_factory.dart';
 import 'package:dart_service_locator/service_future.dart';
+import 'package:dart_service_locator/service_i_impl.dart';
 import 'package:dart_service_locator/singleton_service.dart';
 import 'package:get_it/get_it.dart';
 
@@ -46,5 +48,23 @@ void main(List<String> arguments) async {
   print('--------------------');
 
   sl.get<ParamService>(param1: 'DUPA').call();
+  print('--------------------');
+
+  sl.get<ServiceI>().call();
+  sl.get<ServiceI>(instanceName: 'first').call();
+  sl.get<ServiceI>(instanceName: 'ServiceImpl3').call();
+  print('--------------------');
+
+  try {
+    sl.get<EnvService>().call();
+  } catch (_) {
+    print('env service not registered');
+    await sl.reset();
+    await configureDependencies(sl, env: 'dupa_env');
+  }
+  sl.
+  sl.get<EnvService>().call();
+  await sl.reset();
+  await configureDependencies(sl);
   print('--------------------');
 }
