@@ -15,6 +15,8 @@ import 'package:get_it/get_it.dart';
 late GetIt sl = GetIt.instance;
 
 void main(List<String> arguments) async {
+  sl.debugEventsEnabled = true;
+
   await configureDependencies(sl);
   print('--------------------');
 
@@ -55,14 +57,19 @@ void main(List<String> arguments) async {
   sl.get<ServiceI>(instanceName: 'ServiceImpl3').call();
   print('--------------------');
 
+  // WARNING
+  // If not marked with an env, it will build in all envs.
   try {
     sl.get<EnvService>().call();
   } catch (_) {
     print('env service not registered');
+    print('pre resolve registered without env: ${sl.isRegistered<PreResolveFutureService>()}');
+    print('singleton registered without env: ${sl.isRegistered<SingletonService>()}');
     await sl.reset();
     await configureDependencies(sl, env: 'dupa_env');
+    print('pre resolve registered in dupa_env: ${sl.isRegistered<PreResolveFutureService>()}');
+    print('singleton registered in dupa_env: ${sl.isRegistered<SingletonService>()}');
   }
-  sl.
   sl.get<EnvService>().call();
   await sl.reset();
   await configureDependencies(sl);

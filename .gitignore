@@ -5,3 +5,5 @@
 .idea/
 
 dart_service_locator.iml
+# Widget Preview related
+.widget_preview/
