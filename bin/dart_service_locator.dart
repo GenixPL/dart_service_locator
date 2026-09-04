@@ -1,3 +1,4 @@
+import 'package:dart_service_locator/auto_register_service.dart';
 import 'package:dart_service_locator/cached_service.dart';
 import 'package:dart_service_locator/env_service.dart';
 import 'package:dart_service_locator/force_gc.dart';
@@ -78,5 +79,8 @@ void main(List<String> arguments) async {
   sl.get<EnvService>().call();
   await sl.reset();
   await configureDependencies(sl);
+  print('--------------------');
+
+  sl.get<AutoRegisterService>().call();
   print('--------------------');
 }

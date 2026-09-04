@@ -10,6 +10,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 
+import 'package:dart_service_locator/auto_register_service.dart' as _i61;
 import 'package:dart_service_locator/cached_service.dart' as _i758;
 import 'package:dart_service_locator/env_service.dart' as _i502;
 import 'package:dart_service_locator/math_service.dart' as _i49;
@@ -33,6 +34,7 @@ extension GetItInjectableX on _i174.GetIt {
     _i526.EnvironmentFilter? environmentFilter,
   }) async {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
+    gh.factory<_i61.AutoRegisterService>(() => _i61.AutoRegisterService());
     gh.factoryCached<_i758.CachedService>(() => _i758.CachedService());
     await gh.factoryAsync<_i891.PreResolveFutureService>(
       () => _i891.PreResolveFutureService.getInstance(),
