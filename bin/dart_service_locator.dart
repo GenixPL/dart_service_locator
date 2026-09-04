@@ -2,10 +2,12 @@ import 'package:dart_service_locator/auto_register_service.dart';
 import 'package:dart_service_locator/cached_service.dart';
 import 'package:dart_service_locator/env_service.dart';
 import 'package:dart_service_locator/force_gc.dart';
+import 'package:dart_service_locator/injection.config.dart';
 import 'package:dart_service_locator/injection.dart';
 import 'package:dart_service_locator/math_service.dart';
 import 'package:dart_service_locator/param_service.dart';
 import 'package:dart_service_locator/pre_resolve_future_service.dart';
+import 'package:dart_service_locator/scope_service.dart';
 import 'package:dart_service_locator/service_a_b.dart';
 import 'package:dart_service_locator/service_factory.dart';
 import 'package:dart_service_locator/service_future.dart';
@@ -82,5 +84,24 @@ void main(List<String> arguments) async {
   print('--------------------');
 
   sl.get<AutoRegisterService>().call();
+  print('--------------------');
+
+  try {
+    sl.get<ScopeService>().call();
+  } catch (_) {
+    print('scope service not registered');
+  }
+  await sl.initScopeScope();
+  try {
+    sl.get<ScopeService>().call();
+  } catch (_) {
+    print('scope service not registered');
+  }
+  await sl.resetScope();
+  try {
+    sl.get<ScopeService>().call();
+  } catch (_) {
+    print('scope service not registered');
+  }
   print('--------------------');
 }

@@ -16,6 +16,7 @@ import 'package:dart_service_locator/env_service.dart' as _i502;
 import 'package:dart_service_locator/math_service.dart' as _i49;
 import 'package:dart_service_locator/param_service.dart' as _i759;
 import 'package:dart_service_locator/pre_resolve_future_service.dart' as _i891;
+import 'package:dart_service_locator/scope_service.dart' as _i585;
 import 'package:dart_service_locator/service_a_b.dart' as _i340;
 import 'package:dart_service_locator/service_factory.dart' as _i196;
 import 'package:dart_service_locator/service_future.dart' as _i313;
@@ -71,5 +72,16 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i632.ServiceImpl2(gh<_i632.ServiceI>(instanceName: 'first')),
     );
     return this;
+  }
+
+  // initializes the registration of scope-scope dependencies inside of GetIt
+  _i174.GetIt initScopeScope({_i174.ScopeDisposeFunc? dispose}) {
+    return _i526.GetItHelper(this).initScope(
+      'scope',
+      dispose: dispose,
+      init: (_i526.GetItHelper gh) {
+        gh.factory<_i585.ScopeService>(() => _i585.ScopeService());
+      },
+    );
   }
 }
