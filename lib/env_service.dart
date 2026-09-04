@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 
-@Injectable(env: const ['dupa_env'])
+@Injectable(env: ['dupa_env'])
 class EnvService {
   void call() {
     print('call env service');

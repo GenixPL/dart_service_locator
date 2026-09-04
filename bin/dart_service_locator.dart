@@ -11,6 +11,7 @@ import 'package:dart_service_locator/service_future.dart';
 import 'package:dart_service_locator/service_i_impl.dart';
 import 'package:dart_service_locator/singleton_service.dart';
 import 'package:get_it/get_it.dart';
+import 'package:injectable/injectable.dart';
 
 late GetIt sl = GetIt.instance;
 
@@ -58,7 +59,7 @@ void main(List<String> arguments) async {
   print('--------------------');
 
   // WARNING
-  // If not marked with an env, it will build in all envs.
+  // If not marked with an env, it will build in all envs, unless custom filter is provided.
   try {
     sl.get<EnvService>().call();
   } catch (_) {
@@ -66,7 +67,11 @@ void main(List<String> arguments) async {
     print('pre resolve registered without env: ${sl.isRegistered<PreResolveFutureService>()}');
     print('singleton registered without env: ${sl.isRegistered<SingletonService>()}');
     await sl.reset();
-    await configureDependencies(sl, env: 'dupa_env');
+    await configureDependencies(
+      sl,
+      // env: 'dupa_env',
+      envFilter: SimpleEnvironmentFilter(filter: (envs) => envs.contains('dupa_env')),
+    );
     print('pre resolve registered in dupa_env: ${sl.isRegistered<PreResolveFutureService>()}');
     print('singleton registered in dupa_env: ${sl.isRegistered<SingletonService>()}');
   }
